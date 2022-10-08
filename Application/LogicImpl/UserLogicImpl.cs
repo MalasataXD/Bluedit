@@ -25,14 +25,14 @@ public class UserLogicImpl : IUserLogic
         {
             throw new Exception("Username already taken!");
         }
-        
+
         // # Validate the DTO
         ValidateData(userToCreate);
         
         // # Create new user
         User toCreate = new User
         {
-            UserName = userToCreate.UserName
+            UserName = userToCreate.UserName,
         };
         User created = await userDao.CreateAsync(toCreate);
 
@@ -51,7 +51,6 @@ public class UserLogicImpl : IUserLogic
     {
         // # Extract the username
         string userName = userToCreate.UserName;
-        
         // # Check if username is within the parameters
         if (userName.Length < 3)
         {
@@ -61,8 +60,6 @@ public class UserLogicImpl : IUserLogic
         {
             throw new Exception("Username must be less than 15 characters!");
         }
-
-
     }
     
     

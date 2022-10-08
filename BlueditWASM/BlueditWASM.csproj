@@ -4,7 +4,6 @@
         <TargetFramework>net6.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <RootNamespace>Bluedit</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -13,7 +12,13 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\HttpClients\HttpClients.csproj" />
+      <Folder Include="Pages\Components" />
+      <Folder Include="wwwroot\icons" />
+      <Folder Include="wwwroot\images" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\sample-data\weather.json" />
     </ItemGroup>
 
 </Project>
