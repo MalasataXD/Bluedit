@@ -2,7 +2,6 @@
 using System.Security.Claims;
 using System.Text;
 using BlueditAPI.Service;
-using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Shared.DTOs;
@@ -67,7 +66,8 @@ public class AuthController : ControllerBase
         try
         {
             await authService.RegisterUser(dto);
-            return new OkResult();
+            UserLogin created = await authService.GetUser(dto.UserName, dto.PassWord);
+            return new OkObjectResult(created);
         }
         catch (Exception e)
         {
@@ -75,9 +75,6 @@ public class AuthController : ControllerBase
             return new StatusCodeResult(StatusCodes.Status500InternalServerError);
         }
     }
-    
-    
-    
     
     [HttpPost, Route("login")]
     public async Task<ActionResult> Login([FromBody] UserLoginDto userLoginDto)
@@ -94,4 +91,14 @@ public class AuthController : ControllerBase
             return new StatusCodeResult(StatusCodes.Status500InternalServerError);
         }
     }
+
+
+    [HttpGet, Route("getUser")]
+    public async Task<ActionResult<UserLogin>> GetUser(string userName)
+    {
+        UserLogin? userLogin = await authService.GetUserByName(userName);
+
+        return new OkObjectResult(userLogin);
+    }
+    
 }

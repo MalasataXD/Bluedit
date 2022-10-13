@@ -32,7 +32,7 @@ public class UserLogicImpl : IUserLogic
         // # Create new user
         User toCreate = new User
         {
-            UserName = userToCreate.UserName,
+            UserName = userToCreate.UserName
         };
         User created = await userDao.CreateAsync(toCreate);
 

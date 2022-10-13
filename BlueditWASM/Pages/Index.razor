@@ -1,9 +1,23 @@
-﻿@page "/"
+﻿
+@page "/"
+@using BlueditWASM.Services.Http
+@inject IAuthService authService
+@inject NavigationManager navMgr
 
 <PageTitle>Index</PageTitle>
-
-<h1>Hello, world!</h1>
-
+<AuthorizeView>
+    <NotAuthorized>
+        <h1>Hello, world!</h1>
+    </NotAuthorized>
+    <Authorized>
+        <div class="card">
+            <h1>Hello, you´re logged in!</h1>
+        </div>
+    </Authorized>
+</AuthorizeView>
 Welcome to your new app.
 
-<SurveyPrompt Title="How is Blazor working for you?"/>
+@code
+{
+    
+}

@@ -29,6 +29,16 @@ public class AuthService : IAuthService
 
         return user;
     }
+    
+    public async Task<UserLogin> GetUserByName(string username)
+    {
+        UserLogin? user = await _userLoginDao.GetByUserNameAsync(username);
+        if (user == null)
+        {
+            throw new Exception("Couldn't find a user with that username!");
+        }
+        return user;
+    }
 
     public async Task RegisterUser(UserLoginCreationDto user)
     {
