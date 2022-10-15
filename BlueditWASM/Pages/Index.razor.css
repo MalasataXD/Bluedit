@@ -1,0 +1,33 @@
+﻿/* Style the search box inside the navigation bar */
+.SearchBar
+{
+    float:right;
+    padding: 6px;
+    border-radius: 25px;
+    margin: auto 10px auto;
+    font-size: 17px;
+}
+.icon {
+    float:right;
+    margin: 5px auto;
+    width: 30px;
+    cursor: pointer;
+}
+#bigCol
+{
+    background-color: lightgrey;
+}
+
+#smallCol
+{
+    background-color:dimgrey;
+}
+
+
+.post-card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    display: inline-block;
+    margin: 25px;
+    padding: 15px;
+    border-radius: 10px;
+}

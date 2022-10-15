@@ -1,23 +1,80 @@
 ﻿
 @page "/"
-@using BlueditWASM.Services.Http
-@inject IAuthService authService
-@inject NavigationManager navMgr
+@using Domain.Models
+@using HttpClients.Interfaces
+@inject IPostService PostService
 
 <PageTitle>Index</PageTitle>
-<AuthorizeView>
-    <NotAuthorized>
-        <h1>Hello, world!</h1>
-    </NotAuthorized>
-    <Authorized>
-        <div class="card">
-            <h1>Hello, you´re logged in!</h1>
+<div class="container">
+    <div class="row">
+        <AuthorizeView>
+            <NotAuthorized>
+                <h1>Hello, world!</h1>
+                
+            </NotAuthorized>
+            <Authorized>
+                <div class="card">
+                    <h1>Hello, you´re logged in!</h1>
+                </div>
+            </Authorized>
+        </AuthorizeView>
+    </div>
+    <div class="row">
+        <div id="bigCol" class="col">
+            @if (posts == null)
+               {
+                   <span>Loading..</span>
+               }
+               else if (!posts.Any())
+               {
+                   <span>No users to be found</span>
+               }
+               else
+               {
+                   <div class="posts-container">
+                       @foreach (Post post in posts)
+                       {
+                           <div class="post-card">
+                               <label>@post.Title</label>
+                               <label>@post.Description</label>
+                               <label>@post.Owner.UserName</label>
+                           </div>
+                       }
+                   </div>
+               }
         </div>
-    </Authorized>
-</AuthorizeView>
-Welcome to your new app.
+        <div id="smallCol" class="col col-lg-4">
+            <div>
+                <img class="icon" src="icons/search.png"/>
+                <input class="SearchBar" type="text" placeholder="Search...">
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @code
 {
+    private IEnumerable<Post>? posts;
+    private string msg = "";
+
+
+    protected override async  Task OnInitializedAsync()
+    {
+        await LoadPosts();
+    }
+
     
+    private async Task LoadPosts ()
+    {
+        try
+        {
+            posts = await PostService.GetAsync(null, null, null);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
 }
