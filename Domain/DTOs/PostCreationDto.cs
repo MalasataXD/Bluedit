@@ -3,14 +3,14 @@
 public class PostCreationDto
 {
     // # Fields
-    public int OwnerId { get; }
+    public string OwnerName { get; }
     public string Title { get; }
     public string Description { get;}
     
-    // ¤ Construcotr
-    public PostCreationDto(int ownerId, string title, string description)
+    // ¤ Constructor
+    public PostCreationDto(string ownerName, string title, string description)
     {
-        OwnerId = ownerId;
+        OwnerName = ownerName;
         Title = title;
         Description = description;
     }

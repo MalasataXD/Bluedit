@@ -22,10 +22,10 @@ public class PostLogicImpl : IPostLogic
     public async Task<Post> CreateAsync(PostCreationDto dto)
     {
         // # Check if owner exist
-        User? user = await _userDao.GetByUserIdAsync(dto.OwnerId);
+        User? user = await _userDao.GetByUserNameAsync(dto.OwnerName);
         if (user == null)
         {
-            throw new Exception($"User with id {dto.OwnerId} was not found!");
+            throw new Exception($"User with id {dto.OwnerName} was not found!");
         }
         
         // # Validate DTO

@@ -1,8 +1,14 @@
 ﻿
 @page "/"
 @using Domain.Models
+@using Components
 @using HttpClients.Interfaces
+@using BlueditWASM.Services.Http
+@using System.Security.Claims
+@using Domain.DTOs
 @inject IPostService PostService
+@inject IAuthService AuthService
+@inject IUserService UserService
 
 <PageTitle>Index</PageTitle>
 <div class="container">
@@ -21,49 +27,89 @@
     </div>
     <div class="row">
         <div id="bigCol" class="col">
+            <div>
+                <button @onclick="LoadPosts">Load</button>
+            </div>
             @if (posts == null)
-               {
-                   <span>Loading..</span>
-               }
-               else if (!posts.Any())
-               {
-                   <span>No users to be found</span>
-               }
-               else
-               {
-                   <div class="posts-container">
-                       @foreach (Post post in posts)
-                       {
-                           <div class="post-card">
-                               <label>@post.Title</label>
-                               <label>@post.Description</label>
-                               <label>@post.Owner.UserName</label>
-                           </div>
-                       }
-                   </div>
-               }
+            {
+                <span>Loading..</span>
+            }
+            else if (!posts.Any())
+            {
+                <span>No users to be found</span>
+            }
+            else
+            {
+                <div class="posts-container">
+                    @foreach (Post post in posts)
+                    {
+                        <div class="post-card">
+                            <h3>@post.Title</h3>
+                            <p>User: @post.Owner.UserName</p>
+                            <p>@post.Description</p>
+                        </div>
+                    }
+                </div>
+            }
         </div>
         <div id="smallCol" class="col col-lg-4">
-            <div>
-                <img class="icon" src="icons/search.png"/>
-                <input class="SearchBar" type="text" placeholder="Search...">
+            <div class="row">
+                <div>
+                    <img class="icon" src="icons/search.png"/>
+                    <input class="SearchBar" type="text" placeholder="Search...">
+                </div>
+                <AuthorizeView>
+                    <Authorized>
+                        <div>
+                            <button class="addbutton" @onclick="AddPostButton"><span class="oi oi-plus">Add new Post</span></button>
+                        </div>
+                    </Authorized>
+                </AuthorizeView>
             </div>
         </div>
     </div>
+    
+    
 </div>
+
+
+<Modal ShowModal="showModal">
+        <div class="card">
+            <h3>Create new Post</h3>
+            <div class="field">
+                <label>Title:</label>
+                <input type="text" @bind="title"/>
+            </div>
+            <div class="field">
+                <label style="text-align: center">Description:</label>
+                <input type="text" @bind="description"/>
+            </div>
+            @if (!string.IsNullOrEmpty(errorLabel))
+            {
+                <div class="field">
+                    <label style="color: red">
+                        @errorLabel
+                    </label>
+                </div>
+            }
+            <div class="field">
+                <button @onclick="CreateNewPost">Post</button>
+            </div>
+        </div>
+    </Modal>
 
 
 @code
 {
     private IEnumerable<Post>? posts;
     private string msg = "";
-
-
-    protected override async  Task OnInitializedAsync()
-    {
-        await LoadPosts();
-    }
-
+    private string title;
+    private string description;
+    private string errorLabel;
+    private bool showModal = false;
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthState { get; set; } = null!;
+    
     
     private async Task LoadPosts ()
     {
@@ -77,4 +123,26 @@
             throw;
         }
     }
+
+    private void AddPostButton()
+    {
+        showModal = true;
+    }
+
+
+    private async Task CreateNewPost()
+    {
+        AuthenticationState authState = await AuthState;
+        ClaimsPrincipal user = authState.User;
+        string name = user.Identity!.Name!;
+        Console.WriteLine(name);
+
+        PostCreationDto toCreate = new(name, title, description);
+
+        await PostService.CreateAsync(toCreate);
+        await LoadPosts();
+        showModal = false;
+    }
+    
+    
 }

@@ -52,7 +52,10 @@ public class LoginContext
     // ¤ Save data into file
     public void SaveChanges()
     {
-        string serialized = JsonSerializer.Serialize(loginContainer);
+        string serialized = JsonSerializer.Serialize(loginContainer,new JsonSerializerOptions
+        {
+            WriteIndented = true
+        });
         File.WriteAllText(FilePath,serialized);
         loginContainer = null; // ! RESET DATACONTAINER
     }

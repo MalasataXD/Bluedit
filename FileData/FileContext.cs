@@ -59,7 +59,7 @@ public class FileContext
     // ¤ Save data into file
     public void SaveChanges()
     {
-        string serialized = JsonSerializer.Serialize(DataContainer);
+        string serialized = JsonSerializer.Serialize(DataContainer,new JsonSerializerOptions {WriteIndented = true });
         File.WriteAllText(FilePath,serialized);
         DataContainer = null; // ! RESET DATACONTAINER
     }
