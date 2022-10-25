@@ -34,10 +34,10 @@ public class PostHttpClient : IPostService
     }
 
     // # Get Post (Query)
-    public async Task<ICollection<Post>> GetAsync(string? userName, int? ownerId, string? titleContains)
+    public async Task<ICollection<Post>> GetAsync(string? userName, string? titleContains)
     {
         // # Send Request of Post/Posts
-        string query = ConstructQuery(userName, ownerId, titleContains);
+        string query = ConstructQuery(userName, titleContains);
         HttpResponseMessage response = await _client.GetAsync("/post" + query);
         string content = await response.Content.ReadAsStringAsync();
         
@@ -83,23 +83,19 @@ public class PostHttpClient : IPostService
     }
     
     // ¤ Create Query by using SearchParameters
-    private static string ConstructQuery(string? userName, int? ownerId, string? titleContains)
+    private static string ConstructQuery(string? userName, string? titleContains)
     {
         string query = "";
         if (!string.IsNullOrEmpty(userName))
         {
             query += $"?username={userName}";
         }
-        if (ownerId != null)
-        {
-            query += string.IsNullOrEmpty(query) ? "?" : "&";
-            query += $"userid={ownerId}";
-        }
         if (!string.IsNullOrEmpty(titleContains))
         {
             query += string.IsNullOrEmpty(query) ? "?" : "&";
-            query += $"titlecontains={titleContains}";
+            query += $"title={titleContains}";
         }
+        
         return query;
     }
 }
