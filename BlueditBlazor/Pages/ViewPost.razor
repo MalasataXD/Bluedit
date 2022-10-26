@@ -1,0 +1,56 @@
+﻿@page "/ViewPost/{id:int}"
+@using Domain.Models
+@using HttpClients.Interfaces
+@inject IPostService PostService;
+@inject NavigationManager navMgr
+
+<PageTitle>Looking at Post</PageTitle>
+<div class="post-card">
+    
+    @if(post == null)
+    {
+        <label>Loading Post data..</label>
+    }
+    else
+    {
+        <div>
+            <img src="icons/zoom-out.png" class="icon" @onclick="@(() => navMgr.NavigateTo($"/"))"/>
+        </div>
+        <p class="post-title">@post.Title</p>
+        <p class="post-author">Author: <b>@post.Owner.UserName</b></p>
+        <p class="post-content">@post.Description</p>
+    }
+</div>
+
+@code 
+{
+    [Parameter]
+    public int Id { get; set; }
+
+    private Post post = null!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            post = await PostService.GetByIdAsync(Id);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+        
+        
+        
+    }
+
+
+
+
+
+
+
+
+
+}

@@ -1,0 +1,61 @@
+.post-card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    max-width: 1100px;
+    height: auto;
+    margin: 25px 25px auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: whitesmoke;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.post-title
+{
+    font-size: 25px;
+    font-weight: bold;
+    color: darkslategrey;
+}
+
+.post-author
+{
+    font-size: 12px;
+    color: darkslategray;
+}
+
+.post-content
+{
+    font-size: 14px;
+    color: darkslategrey;
+}
+
+.icon 
+{
+    float:right;
+    margin: 5px auto;
+    width: 30px;
+    cursor: pointer;
+}
+
+.filter-bar {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    width: 350px;
+    padding: 5px;
+    display: inline-block;
+    margin: 20px;
+}
+
+.funnel{
+    width:30px;
+    height:30px;
+    cursor: pointer;
+}
+
+.filter {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+    text-align: center;
+}

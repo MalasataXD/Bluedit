@@ -43,7 +43,20 @@ public class PostLogicImpl : IPostLogic
         IEnumerable<Post> posts =  await _postDao.GetAsync(searchParameters);
         return posts;
     }
-    
+
+    public async Task<Post> GetByIdAsync(int id)
+    {
+        Post? found = await _postDao.GetByIdAsync(id);
+
+        if (found == null)
+        {
+            throw new Exception($"Post with ID {id} not found!");
+        }
+
+        return found;
+    }
+
+
     public async Task UpdateAsync(PostUpdateDto dto)
     {
         Post? existing = await _postDao.GetByIdAsync(dto.PostId);

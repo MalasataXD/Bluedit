@@ -1,0 +1,104 @@
+﻿@page "/MyPosts"
+@using Domain.Models
+@using Microsoft.AspNetCore.Components
+@using System.Security.Claims
+@using HttpClients.Interfaces
+@inject IPostService PostService
+@inject NavigationManager navMgr
+
+
+<PageTitle>My Posts</PageTitle>
+<div class="container">
+    <div class="row">
+        <h1>My posts</h1>
+    </div>
+    <div class="row">
+        <div class="col">
+            @if (myPosts == null)
+            {
+                <span>Loading..</span>
+            }
+            else if (!myPosts.Any())
+            {
+                <span>No posts to be found</span>
+            }
+            else
+            {
+                <div class="posts-container">
+                    @foreach (Post post in myPosts)
+                    {
+                        <div class="post-card">
+                            <div>
+                                <img src="icons/zoom-in.png" class="icon" @onclick="@(() => navMgr.NavigateTo($"/ViewPost/{post.PostId}"))"/>
+                                </div>
+                                <p class="post-title">@post.Title</p>
+                                <p class="post-author">Author: <b>@post.Owner.UserName</b></p>
+                                <p class="post-content">@post.Description</p>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+        <div class="col col-lg-3">
+            <div class="row">
+                <div class="filter-bar">
+                    <div class="filters-container">
+                        <img src="icons/@(doShowFilters ? "clear_" : "")funnel.png" class="funnel" @onclick="@(() => doShowFilters = !doShowFilters)" alt="Funnel"/>
+                        @if (doShowFilters)
+                        {
+                            <div class="filter">
+                                <label>Title:</label>
+                                <input type="text" @bind="titleContainsFilter"/>
+                            </div>
+                            <div>
+                                <button @onclick="LoadPosts">Search</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@code 
+{
+    private IEnumerable<Post>? myPosts;
+    private string msg = "";
+    private string title;
+    private string description;
+    private string errorLabel;
+    private bool showModal = false;
+    private bool doShowFilters = false;
+
+
+    private string? titleContainsFilter;
+
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthState { get; set; } = null!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadPosts();
+    }
+
+    private async Task LoadPosts()
+    {
+        try
+        {
+            AuthenticationState authState = await AuthState;
+            ClaimsPrincipal user = authState.User;
+            string name = user.Identity!.Name!;
+            myPosts = await PostService.GetAsync(name, null, titleContainsFilter);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+}

@@ -54,7 +54,7 @@
         "UserID": 4,
         "UserName": "Kalasana"
       },
-      "Title": "Why i'm the coolest person alive.",
+      "Title": "Why i\u0027m the coolest person alive.",
       "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque maximus auctor leo, nec malesuada lacus. Suspendisse commodo tincidunt odio, eu porttitor est rutrum at. Fusce at elementum diam, sed tempor lorem. Mauris quis suscipit ipsum, sed consequat massa. Donec tincidunt urna nulla, sed ultricies eros malesuada sit amet. Etiam viverra augue nunc, placerat interdum lectus semper id. Donec fringilla nec ligula eget elementum. Phasellus commodo tincidunt libero, non porttitor nunc gravida et. Aenean eget ante velit.\n\nVestibulum eu dapibus arcu, quis aliquam est. Morbi iaculis nisl purus. Nullam maximus ut nibh aliquet blandit. Vestibulum rutrum, lectus a blandit accumsan, enim dui venenatis erat, et consequat nibh libero varius nulla. Nulla porta enim ac nisi aliquet euismod. Mauris viverra leo turpis, ut scelerisque nisi vehicula at. Proin ornare felis vel lorem dignissim scelerisque. Sed scelerisque euismod lorem, a sagittis dolor mattis molestie. Donec commodo vestibulum sapien et efficitur. Mauris eros lorem, varius sit amet imperdiet et, auctor vitae risus. Curabitur non nibh lacus. Pellentesque elit quam, pellentesque et imperdiet vitae, imperdiet id quam.",
       "DateTime": "18-10-2022 15:44:19"
     },
@@ -77,6 +77,26 @@
       "Title": "Are Birds actually spying for the government?",
       "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque maximus auctor leo, nec malesuada lacus. Suspendisse commodo tincidunt odio, eu porttitor est rutrum at. Fusce at elementum diam, sed tempor lorem. Mauris quis suscipit ipsum, sed consequat massa. Donec tincidunt urna nulla, sed ultricies eros malesuada sit amet. Etiam viverra augue nunc, placerat interdum lectus semper id. Donec fringilla nec ligula eget elementum. Phasellus commodo tincidunt libero, non porttitor nunc gravida et. Aenean eget ante velit.\n\nVestibulum eu dapibus arcu, quis aliquam est. Morbi iaculis nisl purus. Nullam maximus ut nibh aliquet blandit. Vestibulum rutrum, lectus a blandit accumsan, enim dui venenatis erat, et consequat nibh libero varius nulla. Nulla porta enim ac nisi aliquet euismod. Mauris viverra leo turpis, ut scelerisque nisi vehicula at. Proin ornare felis vel lorem dignissim scelerisque. Sed scelerisque euismod lorem, a sagittis dolor mattis molestie. Donec commodo vestibulum sapien et efficitur. Mauris eros lorem, varius sit amet imperdiet et, auctor vitae risus. Curabitur non nibh lacus. Pellentesque elit quam, pellentesque et imperdiet vitae, imperdiet id quam.",
       "DateTime": "18-10-2022 15:45:24"
+    },
+    {
+      "PostId": 7,
+      "Owner": {
+        "UserID": 1,
+        "UserName": "Malasata"
+      },
+      "Title": "Test post 123",
+      "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut in congue augue, eu efficitur nunc. Integer at diam sed massa euismod finibus ac vitae enim. Curabitur eget pharetra justo. Fusce vitae cursus velit, sit amet pellentesque urna. Pellentesque vitae tincidunt elit. Praesent auctor nunc et mauris eleifend dignissim. Etiam finibus urna ut est semper bibendum. Phasellus quis tellus et metus lobortis consectetur in id justo.",
+      "DateTime": "26-10-2022 18:06:10"
+    },
+    {
+      "PostId": 8,
+      "Owner": {
+        "UserID": 1,
+        "UserName": "Malasata"
+      },
+      "Title": "test",
+      "Description": "123",
+      "DateTime": "27-10-2022 13:30:38"
     }
   ]
 }

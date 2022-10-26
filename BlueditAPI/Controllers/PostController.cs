@@ -51,6 +51,22 @@ public class PostController
             return new StatusCodeResult(StatusCodes.Status500InternalServerError);
         }
     }
+
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult<Post>> GetByIdAsync([FromRoute] int id)
+    {
+        try
+        {
+            Post postFound = await postLogic.GetByIdAsync(id);
+            return new OkObjectResult(postFound);
+
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+        }
+    }
     
     // # Update (PATCH operation)
     [HttpPatch]

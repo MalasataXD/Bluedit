@@ -3,4 +3,6 @@
   &lt;Assembly Path="C:\Users\madsh\RiderProjects\Bluedit\BlueditWASM\bin\Debug\net6.0\wwwroot\_framework\HttpClients.dll" /&gt;&#xD;
   &lt;Assembly Path="C:\Users\madsh\RiderProjects\Bluedit\BlueditWASM\bin\Debug\net6.0\Domain.dll" /&gt;&#xD;
   &lt;Assembly Path="C:\Users\madsh\RiderProjects\Bluedit\BlueditWASM\bin\Debug\net6.0\ref\BlueditWASM.dll" /&gt;&#xD;
-&lt;/AssemblyExplorer&gt;</s:String></wpf:ResourceDictionary>
+&lt;/AssemblyExplorer&gt;</s:String>
+	
+	</wpf:ResourceDictionary>

@@ -34,7 +34,7 @@ public class PostHttpClient : IPostService
     }
 
     // # Get Post (Query)
-    public async Task<ICollection<Post>> GetAsync(string? userName, string? titleContains)
+    public async Task<ICollection<Post>> GetAsync(string? userName,int? id, string? titleContains)
     {
         // # Send Request of Post/Posts
         string query = ConstructQuery(userName, titleContains);
@@ -51,8 +51,29 @@ public class PostHttpClient : IPostService
         ICollection<Post> posts = JsonSerializer.Deserialize<ICollection<Post>>(content,
             new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
         return posts;
-        
     }
+
+    public async Task<Post> GetByIdAsync(int id)
+    {
+        HttpResponseMessage response = await _client.GetAsync($"/post/{id}");
+        string content = await response.Content.ReadAsStringAsync();
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception(content);
+        }
+
+        Post post = JsonSerializer.Deserialize<Post>(content, 
+            new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            }
+        )!;
+        return post;
+    }
+    
+    
+    
+    
 
     // # Update an existing Post
     public async Task UpdateAsync(PostUpdateDto dto)
