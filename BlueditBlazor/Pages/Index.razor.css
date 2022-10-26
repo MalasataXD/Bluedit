@@ -1,0 +1,80 @@
+﻿/* Style the search box inside the navigation bar */
+.SearchBar
+{
+    float:right;
+    padding: 6px;
+    border-radius: 25px;
+    margin: auto 10px auto;
+    font-size: 17px;
+}
+.icon {
+    float:right;
+    margin: 5px auto;
+    width: 30px;
+    cursor: pointer;
+}
+
+.post-card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    width: auto;
+    height: 200px;
+    margin: 25px 25px auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: whitesmoke;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.post-title
+{
+    font-size: 25px;
+    font-weight: bold;
+    color: darkslategrey;
+}
+
+.post-author
+{
+    font-size: 12px;
+    color: darkslategray;
+}
+
+.post-content
+{
+    font-size: 14px;
+    color: darkslategrey;
+    
+}
+
+
+
+.addbutton
+{
+    float: right;
+    padding: 5px 5px 5px 5px;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-right: 25px;
+}
+
+.filter-bar {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 5px;
+    display: inline-block;
+    margin: 20px;
+}
+
+.funnel{
+    width:30px;
+    height:30px;
+    cursor: pointer;
+}
+
+.filter {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+    text-align: center;
+}

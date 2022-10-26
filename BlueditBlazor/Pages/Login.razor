@@ -1,0 +1,70 @@
+﻿@page "/Login"
+@using Http
+@inject IAuthService authService
+@inject NavigationManager navMgr
+
+<AuthorizeView>
+    <NotAuthorized>
+        <div class="card">
+            <h3>Login</h3>
+            <div class="field">
+                <label>Username:</label>
+                <input type="text" @bind="userName"/>
+            </div>
+            <div class="field">
+                <label style="text-align: center">Password:</label>
+                <input type="password" @bind="password"/>
+            </div>
+            @if (!string.IsNullOrEmpty(errorLabel))
+            {
+                <div class="field">
+                    <label style="color: red">
+                        @errorLabel
+                    </label>
+                </div>
+            }
+            <div class="field">
+                <button class="loginbtn" @onclick="LoginAsync">Log in</button>
+            </div>
+            <div class="field">
+                <label style="text-align: center; font-size: 12px" >New to Blueddit?</label>
+                <p style="font-size: 10px;" ><strong class="signuptext "@onclick="GoToSignUp">Sign up</strong></p>
+            </div>
+        </div>
+    </NotAuthorized>
+</AuthorizeView>
+
+
+
+@code 
+{
+    private string userName;
+    private string password;
+    private string errorLabel;
+    
+    private void Proceed()
+    {
+        navMgr.NavigateTo("/");
+    }
+    
+    private async Task LoginAsync()
+    {
+        errorLabel = "";
+        try
+        {
+            await authService.LoginAsync(userName, password);
+            navMgr.NavigateTo("/");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            errorLabel = "Couldn't log on using the user details...";
+        }
+    }
+
+    private void GoToSignUp()
+    {
+        navMgr.NavigateTo("/signup");
+    }
+    
+}

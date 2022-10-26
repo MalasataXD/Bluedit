@@ -1,0 +1,175 @@
+﻿@page "/"
+@using Domain.Models
+@using Components
+@using HttpClients.Interfaces
+@using System.Security.Claims
+@using Domain.DTOs
+@using Microsoft.AspNetCore.Components.Authorization
+@inject IPostService PostService
+
+<PageTitle>Index</PageTitle>
+
+<div class="page">
+    <div class="container">
+        <div class="row">
+            <AuthorizeView>
+                <NotAuthorized>
+                    <h1>Trending Posts</h1>
+                    
+                </NotAuthorized>
+                <Authorized>
+                    <div class="card">
+                        <h1>Welcome back!</h1>
+                    </div>
+                </Authorized>
+            </AuthorizeView>
+        </div>
+        <div class="row">
+            <div class="col">
+                @if (posts == null)
+                {
+                    <span>Loading..</span>
+                }
+                else if (!posts.Any())
+                {
+                    <span>No posts to be found</span>
+                }
+                else
+                {
+                    <div class="posts-container">
+                        @foreach (Post post in posts)
+                        {
+                            <div class="post-card">
+                                <p class="post-title">@post.Title</p>
+                                <p class="post-author">Author: <b>@post.Owner.UserName</b></p>
+                                <p class="post-content">@post.Description</p>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+            <div class="col col-lg-3">
+                <div class="row">
+                    <div class="filter-bar">
+                        <div class="filters-container">
+                            <img src="icons/@(doShowFilters ? "clear_" : "")funnel.png" class="funnel" @onclick="@(() => doShowFilters = !doShowFilters)" alt="Funnel"/>
+                            @if (doShowFilters)
+                            {
+                                <div class="filter">
+                                    <label>Title:</label>
+                                    <input type="text" @bind="titleContainsFilter"/>
+                                </div>
+                                <div class="filter">
+                                    <label>Username:</label>
+                                    <input type="text" @bind="usernameFilter"/>
+                                </div>
+                                <div>
+                                    <button @onclick="LoadPosts">Search</button>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <AuthorizeView>
+                        <Authorized>
+                            <div>
+                                <button class="addbutton" @onclick="AddPostButton"><span class="oi oi-plus">Add new Post</span></button>
+                            </div>
+                        </Authorized>
+                    </AuthorizeView>
+                </div>
+            </div>
+        </div>
+        
+        
+        <Modal ShowModal="showModal">
+                <div class="card">
+                    <h3>Create new Post</h3>
+                    <div class="field">
+                        <label>Title:</label>
+                        <input type="text" @bind="title"/>
+                    </div>
+                    <div class="field">
+                        <label style="text-align: center">Description:</label>
+                        <input type="text" @bind="description"/>
+                    </div>
+                    @if (!string.IsNullOrEmpty(errorLabel))
+                    {
+                        <div class="field">
+                            <label style="color: red">
+                                @errorLabel
+                            </label>
+                        </div>
+                    }
+                    <div class="field">
+                        <button @onclick="CreateNewPost">Post</button>
+                    </div>
+                </div>
+            </Modal>
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+@code
+{
+    private IEnumerable<Post>? posts;
+    private string msg = "";
+    private string title;
+    private string description;
+    private string errorLabel;
+    private bool showModal = false;
+    private bool doShowFilters = false;
+    
+    
+    private string? titleContainsFilter;
+    private string? usernameFilter;
+
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthState { get; set; } = null!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadPosts();
+    }
+
+    private async Task LoadPosts ()
+    {
+        try
+        {
+                Console.WriteLine(usernameFilter + " " + titleContainsFilter);
+                posts = await PostService.GetAsync(usernameFilter,titleContainsFilter);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    private void AddPostButton()
+    {
+        showModal = true;
+    }
+
+
+    private async Task CreateNewPost()
+    {
+        AuthenticationState authState = await AuthState;
+        ClaimsPrincipal user = authState.User;
+        string name = user.Identity!.Name!;
+        Console.WriteLine(name);
+
+        PostCreationDto toCreate = new(name, title, description);
+
+        await PostService.CreateAsync(toCreate);
+        await LoadPosts();
+        showModal = false;
+    }
+    
+    
+}
