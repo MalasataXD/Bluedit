@@ -19,6 +19,11 @@
       "UserName": "Kalasana",
       "PassWord": "1234",
       "Role": "User"
+    },
+    {
+      "UserName": "Hackerman11",
+      "PassWord": "1234",
+      "Role": "User"
     }
   ]
 }

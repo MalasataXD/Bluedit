@@ -18,9 +18,7 @@
                     
                 </NotAuthorized>
                 <Authorized>
-                    <div class="card">
-                        <h1>Welcome back!</h1>
-                    </div>
+                    <h1>Welcome back!</h1>
                 </Authorized>
             </AuthorizeView>
         </div>
@@ -45,7 +43,7 @@
                                 </div>
                                 <p class="post-title">@post.Title</p>
                                 <p class="post-author">Author: <b>@post.Owner.UserName</b></p>
-                                <p class="post-content">@post.Description</p>
+                                <span class="post-content">@post.Description</span>
 
                             </div>
                         }
@@ -86,41 +84,39 @@
         
         
         <Modal ShowModal="showModal">
-                <div class="card">
+        <div>
                     <h3>Creating new Post</h3>
-                    <div class="field">
-                        <label>Title:</label>
-                        <input type="text" @bind="title"/>
-                    </div>
-                    <div class="field">
-                        <label style="text-align: center">Description:</label>
-                        <textarea type="text" @bind="description"></textarea>
-                    </div>
-                   
-                    
-                    
-                    @if (!string.IsNullOrEmpty(errorLabel))
-                    {
-                        <div class="field">
-                            <label style="color: red">
-                                @errorLabel
-                            </label>
-                        </div>
-                    }
-                    <div class="field">
-                        <button @onclick="CreateNewPost">Post</button>
-                        <button class="exitButton" @onclick="ExitPostCreation">Exit</button>
+                    <div>
+                        <img src="icons/exit.png" class="icon" @onclick="ExitPostCreation">
                     </div>
                 </div>
-            </Modal>
-        
+                <div class="field">
+                    <label>Title:</label>
+                </div>
+                <div class="field">
+                    <input type="text" @bind="title"/>
+                </div>
+                <div class="field">
+                    <label style="text-align: center">Description:</label>
+                </div>
+                <div class="field">
+                    <textarea type="text" @bind="description"></textarea>
+                </div>
+
+                @if (!string.IsNullOrEmpty(errorLabel))
+                {
+                    <div class="field">
+                        <label style="color: red">
+                            @errorLabel
+                        </label>
+                    </div>
+                }
+                <div class="field">
+                    <button class="post-button" @onclick="CreateNewPost">Post</button>
+                </div>
+        </Modal>
     </div>
 </div>
-
-
-
-
-
 
 
 @code
@@ -132,7 +128,6 @@
     private string errorLabel;
     private bool showModal = false;
     private bool doShowFilters = false;
-    
     
     private string? titleContainsFilter;
     private string? usernameFilter;

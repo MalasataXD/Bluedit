@@ -30,53 +30,23 @@
                         <div class="post-card">
                             <div>
                                 <img src="icons/zoom-in.png" class="icon" @onclick="@(() => navMgr.NavigateTo($"/ViewPost/{post.PostId}"))"/>
-                                </div>
+                                <img src="icons/delete.png" class="icon" @onclick="@(() => RemovePost(post.PostId))">
+                            </div>
                                 <p class="post-title">@post.Title</p>
                                 <p class="post-author">Author: <b>@post.Owner.UserName</b></p>
-                                <p class="post-content">@post.Description</p>
+                                <span class="post-content">@post.Description</span>
                         </div>
                     }
                 </div>
             }
         </div>
-        <div class="col col-lg-3">
-            <div class="row">
-                <div class="filter-bar">
-                    <div class="filters-container">
-                        <img src="icons/@(doShowFilters ? "clear_" : "")funnel.png" class="funnel" @onclick="@(() => doShowFilters = !doShowFilters)" alt="Funnel"/>
-                        @if (doShowFilters)
-                        {
-                            <div class="filter">
-                                <label>Title:</label>
-                                <input type="text" @bind="titleContainsFilter"/>
-                            </div>
-                            <div>
-                                <button @onclick="LoadPosts">Search</button>
-                            </div>
-                        }
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
-
-
-
-
 
 @code 
 {
     private IEnumerable<Post>? myPosts;
-    private string msg = "";
-    private string title;
-    private string description;
-    private string errorLabel;
-    private bool showModal = false;
-    private bool doShowFilters = false;
 
-
-    private string? titleContainsFilter;
 
     [CascadingParameter]
     public Task<AuthenticationState> AuthState { get; set; } = null!;
@@ -93,7 +63,7 @@
             AuthenticationState authState = await AuthState;
             ClaimsPrincipal user = authState.User;
             string name = user.Identity!.Name!;
-            myPosts = await PostService.GetAsync(name, null, titleContainsFilter);
+            myPosts = await PostService.GetAsync(name, null, null);
         }
         catch (Exception e)
         {
@@ -101,4 +71,21 @@
             throw;
         }
     }
+
+    private async Task RemovePost(int postId)
+    {
+        try
+        {
+            await PostService.DeleteAsync(postId);
+            await LoadPosts();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+    }
+    
+    
+    
+    
 }
