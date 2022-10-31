@@ -1,5 +1,5 @@
 ﻿using System.Security.Claims;
-using Http;
+using BlueditBlazor.Services.Http;
 using Microsoft.AspNetCore.Components.Authorization;
 
 namespace BlueditBlazor.Auth;

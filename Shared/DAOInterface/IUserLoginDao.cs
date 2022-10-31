@@ -1,6 +1,6 @@
 ﻿using Shared.Models;
 
-namespace Application.DAOInterfaces;
+namespace Shared.DAOInterface;
 
 public interface IUserLoginDao
 {

@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using Shared.DTOs;
 
-namespace Http;
+namespace BlueditBlazor.Services.Http;
 
 public interface IAuthService
 {

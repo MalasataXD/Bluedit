@@ -1,10 +1,9 @@
-﻿
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
 using Shared.DTOs;
 
-namespace Http;
+namespace BlueditBlazor.Services.Http;
 
 public class JwtAuthService : IAuthService
 {
@@ -105,7 +104,7 @@ public class JwtAuthService : IAuthService
         }
     }
 
-    // ¤ Get Authentication on the Website
+    // ¤ Get Shared on the Website
     public Task<ClaimsPrincipal> GetAuthAsync()
     {
         ClaimsPrincipal principal = CreateClaimsPrincipal();
