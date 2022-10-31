@@ -48,7 +48,7 @@ public class PostFileDao : IPostDao
         // # Compare Username
         if (!string.IsNullOrEmpty(searchParameters.UserName))
         {
-            result = result.Where(post => post.Owner.UserName.Equals(searchParameters.UserName,StringComparison.OrdinalIgnoreCase));
+            result = result.Where(post => post.Owner.UserName.Contains(searchParameters.UserName,StringComparison.OrdinalIgnoreCase));
         }
         // # Compare OwnerId
         if (searchParameters.UserId != null)
@@ -60,7 +60,7 @@ public class PostFileDao : IPostDao
         if (!string.IsNullOrEmpty(searchParameters.TitleContains))
         {
             result = result.Where(post =>
-                post.Title.Equals(searchParameters.TitleContains, StringComparison.OrdinalIgnoreCase));
+                post.Title.Contains(searchParameters.TitleContains, StringComparison.OrdinalIgnoreCase));
         }
         
         

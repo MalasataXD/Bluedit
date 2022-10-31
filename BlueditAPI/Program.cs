@@ -8,6 +8,7 @@ using FileData.DAOs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Shared.Auth;
+using Shared.DAOInterface;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -3,7 +3,7 @@
     {
       "UserName": "Malasata",
       "PassWord": "1234",
-      "Role": "User"
+      "Role": "Admin"
     },
     {
       "UserName": "Malasaka",
@@ -22,6 +22,16 @@
     },
     {
       "UserName": "Hackerman11",
+      "PassWord": "1234",
+      "Role": "User"
+    },
+    {
+      "UserName": "Bob",
+      "PassWord": "1234",
+      "Role": "User"
+    },
+    {
+      "UserName": "NewUser",
       "PassWord": "1234",
       "Role": "User"
     }

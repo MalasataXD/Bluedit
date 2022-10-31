@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using BlueditBlazor;
 using BlueditBlazor.Auth;
-using Http;
+using BlueditBlazor.Services.Http;
 using HttpClients.Interfaces;
 using HttpClients.Services;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -20,7 +20,7 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https:/
 builder.Services.AddScoped<IUserService, UserHttpClient>();
 builder.Services.AddScoped<IPostService, PostHttpClient>();
 
-// ! Authentication
+// ! Shared
 builder.Services.AddScoped<IAuthService, JwtAuthService>();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthProvider>();
 AuthorizationPolicies.AddPolicies(builder.Services);
