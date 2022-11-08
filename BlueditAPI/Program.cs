@@ -3,12 +3,14 @@ using Application.DAOInterfaces;
 using Application.LogicImpl;
 using Application.LogicInterfaces;
 using BlueditAPI.Service;
-using FileData;
-using FileData.DAOs;
+using EfcLoginAccess.Implementations;
+using EfcPostAccess;
+using EfcPostAccess.Implementations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Shared.Auth;
 using Shared.DAOInterface;
+using LoginContext = EfcLoginAccess.LoginContext;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,13 +22,15 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // ¤ Added by ME
-builder.Services.AddScoped<FileContext>();
-builder.Services.AddScoped<IUserDao, UserFileDao>();
+// builder.Services.AddScoped<FileContext>();
+// builder.Services.AddScoped<LoginContext>();
+builder.Services.AddDbContext<PostContext>();
+builder.Services.AddDbContext<LoginContext>();
+builder.Services.AddScoped<IUserDao, UserEfcDao>();
 builder.Services.AddScoped<IUserLogic,UserLogicImpl>();
-builder.Services.AddScoped<IPostDao, PostFileDao>();
+builder.Services.AddScoped<IPostDao, PostEfcDao>();
 builder.Services.AddScoped<IPostLogic, PostLogicImpl>();
-builder.Services.AddScoped<LoginContext>();
-builder.Services.AddScoped<IUserLoginDao, LoginFileDao>();
+builder.Services.AddScoped<IUserLoginDao, LoginEfcDao>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>

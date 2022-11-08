@@ -169,7 +169,6 @@
         AuthenticationState authState = await AuthState;
         ClaimsPrincipal user = authState.User;
         string name = user.Identity!.Name!;
-        Console.WriteLine(name);
 
         PostCreationDto toCreate = new(name, title, description);
 
